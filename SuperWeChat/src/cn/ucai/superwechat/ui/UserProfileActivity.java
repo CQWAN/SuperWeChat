@@ -344,5 +344,6 @@ public class UserProfileActivity extends BaseActivity {
         if (mUpdateAvatarReceiver!=null){
             unregisterReceiver(mUpdateAvatarReceiver);
         }
+
     }
 }
