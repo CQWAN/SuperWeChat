@@ -42,6 +42,8 @@ import cn.ucai.superwechat.SuperWeChatHelper.DataSyncListener;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.widget.ContactItemView;
+import cn.ucai.superwechat.widget.TitleMenu.ActionItem;
+import cn.ucai.superwechat.widget.TitleMenu.TitlePopup;
 
 /**
  * contact list
@@ -99,13 +101,19 @@ public class ContactListFragment extends EaseContactListFragment {
     @SuppressWarnings("unchecked")
     @Override
     protected void setUpView() {
+        final TitlePopup titlePopup = new TitlePopup(getContext());
+        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_groupchat,R.drawable.icon_menu_group));
+        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
+        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_qrcode,R.drawable.icon_menu_sao));
+        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_money,R.drawable.icon_menu_money));
         titleBar.setRightImageResource(R.drawable.em_add);
         titleBar.setRightLayoutClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getActivity(), AddContactActivity.class));
+                startActivity(new Intent(getActivity(), AddContactActivity.class));
                 NetUtils.hasDataConnection(getActivity());
+
             }
         });
         //设置联系人数据
@@ -134,7 +142,8 @@ public class ContactListFragment extends EaseContactListFragment {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AddContactActivity.class));
+//                startActivity(new Intent(getActivity(), AddContactActivity.class));
+                titlePopup.show(titleBar);
             }
         });
         
