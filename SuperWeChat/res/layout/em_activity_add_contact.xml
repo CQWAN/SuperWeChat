@@ -2,39 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f2f2f2"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:id="@+id/title"
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_top_bar"
-        android:background="@color/top_bar_normal_bg"
-        android:gravity="center_vertical">
-
-        <include layout="@layout/ease_commom_back_btn" />
-
-        <TextView
-            android:id="@+id/add_list_friends"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/em_mm_title_back"
+        app:titleBarTitle="@string/add_friend"
+        >
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#fff"
-            android:textSize="18sp" />
-        
-        <Button
-            android:id="@+id/search"
-            android:layout_width="54dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ease_common_tab_bg"
-            android:onClick="searchContact"
+            android:id="@+id/btn_search"
             android:text="@string/button_search"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ease_common_tab_bg"
             android:textColor="#fff"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:textSize="16sp"
+            android:onClick="searchContact"/>
+    </com.hyphenate.easeui.widget.EaseTitleBar>
 
     <EditText
         android:id="@+id/edit_note"
@@ -47,7 +36,6 @@
         android:singleLine="true"
         android:textColorHint="#b3b3b3"
         android:textSize="18sp" />
-
     <RelativeLayout
         android:id="@+id/ll_user"
         android:layout_width="match_parent"
@@ -55,7 +43,6 @@
         android:background="@drawable/ease_mm_listitem"
         android:duplicateParentState="true"
         android:visibility="gone">
-
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="45dp"
@@ -64,7 +51,6 @@
             android:layout_marginLeft="11dp"
             android:scaleType="fitXY"
             android:src="@drawable/em_default_avatar" />
-
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -74,8 +60,6 @@
             android:layout_toRightOf="@id/avatar"
             android:textColor="#0F0F0F"
             android:textSize="16sp" />
-
-
         <Button
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
@@ -90,6 +74,4 @@
             android:text="@string/button_add"
             android:textSize="14sp" />
     </RelativeLayout>
-
-
 </LinearLayout>
