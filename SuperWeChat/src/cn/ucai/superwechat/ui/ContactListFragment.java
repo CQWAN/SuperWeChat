@@ -31,7 +31,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.util.EMLog;
-import com.hyphenate.util.NetUtils;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -42,8 +41,6 @@ import cn.ucai.superwechat.SuperWeChatHelper.DataSyncListener;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.widget.ContactItemView;
-import cn.ucai.superwechat.widget.TitleMenu.ActionItem;
-import cn.ucai.superwechat.widget.TitleMenu.TitlePopup;
 
 /**
  * contact list
@@ -101,21 +98,22 @@ public class ContactListFragment extends EaseContactListFragment {
     @SuppressWarnings("unchecked")
     @Override
     protected void setUpView() {
-        final TitlePopup titlePopup = new TitlePopup(getContext());
-        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_groupchat,R.drawable.icon_menu_group));
-        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
-        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_qrcode,R.drawable.icon_menu_sao));
-        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_money,R.drawable.icon_menu_money));
-        titleBar.setRightImageResource(R.drawable.em_add);
-        titleBar.setRightLayoutClickListener(new OnClickListener() {
+        hideTitleBar(); // 隐藏原来的TitleBar
+//        final TitlePopup titlePopup = new TitlePopup(getContext());
+//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_groupchat,R.drawable.icon_menu_group));
+//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
+//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_qrcode,R.drawable.icon_menu_sao));
+//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_money,R.drawable.icon_menu_money));
+//        titleBar.setRightImageResource(R.drawable.em_add);
+//        titleBar.setRightLayoutClickListener(new OnClickListener() {
             
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AddContactActivity.class));
-                NetUtils.hasDataConnection(getActivity());
-
-            }
-        });
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), AddContactActivity.class));
+//                NetUtils.hasDataConnection(getActivity());
+//
+//            }
+//        });
         //设置联系人数据
         Map<String, EaseUser> m = SuperWeChatHelper.getInstance().getContactList();
         if (m instanceof Hashtable<?, ?>) {
@@ -137,15 +135,15 @@ public class ContactListFragment extends EaseContactListFragment {
         });
 
         
-        // 进入添加好友页
-        titleBar.getRightLayout().setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
+//        // 进入添加好友页
+//        titleBar.getRightLayout().setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
 //                startActivity(new Intent(getActivity(), AddContactActivity.class));
-                titlePopup.show(titleBar);
-            }
-        });
+//                titlePopup.show(titleBar);
+//            }
+//        });
         
         
         contactSyncListener = new ContactSyncListener();
