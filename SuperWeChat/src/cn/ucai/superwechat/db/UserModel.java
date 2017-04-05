@@ -7,6 +7,9 @@ import java.io.File;
 import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.utils.OkHttpUtils;
 
+/**
+ * Created by clawpo on 2017/3/29.
+ */
 
 public class UserModel implements IUserModel {
     @Override

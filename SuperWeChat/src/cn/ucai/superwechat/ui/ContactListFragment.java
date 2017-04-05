@@ -98,22 +98,8 @@ public class ContactListFragment extends EaseContactListFragment {
     @SuppressWarnings("unchecked")
     @Override
     protected void setUpView() {
-        hideTitleBar(); // 隐藏原来的TitleBar
-//        final TitlePopup titlePopup = new TitlePopup(getContext());
-//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_groupchat,R.drawable.icon_menu_group));
-//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
-//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_qrcode,R.drawable.icon_menu_sao));
-//        titlePopup.addAction(new ActionItem(getContext(),R.string.menu_money,R.drawable.icon_menu_money));
-//        titleBar.setRightImageResource(R.drawable.em_add);
-//        titleBar.setRightLayoutClickListener(new OnClickListener() {
-            
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getActivity(), AddContactActivity.class));
-//                NetUtils.hasDataConnection(getActivity());
-//
-//            }
-//        });
+        hideTitleBar();
+
         //设置联系人数据
         Map<String, EaseUser> m = SuperWeChatHelper.getInstance().getContactList();
         if (m instanceof Hashtable<?, ?>) {
@@ -134,16 +120,7 @@ public class ContactListFragment extends EaseContactListFragment {
             }
         });
 
-        
-//        // 进入添加好友页
-//        titleBar.getRightLayout().setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getActivity(), AddContactActivity.class));
-//                titlePopup.show(titleBar);
-//            }
-//        });
+
         
         
         contactSyncListener = new ContactSyncListener();

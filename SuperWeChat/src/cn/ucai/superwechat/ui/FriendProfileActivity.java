@@ -1,7 +1,6 @@
 package cn.ucai.superwechat.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,8 +12,10 @@ import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.utils.MFGT;
 
 /**
@@ -22,34 +23,34 @@ import cn.ucai.superwechat.utils.MFGT;
  */
 public class FriendProfileActivity extends BaseActivity {
     @BindView(R.id.title_bar)
-    EaseTitleBar titleBar;
+    EaseTitleBar mTitleBar;
     @BindView(R.id.profile_image)
-    ImageView profileImage;
+    ImageView mProfileImage;
     @BindView(R.id.tv_userinfo_nick)
-    TextView tvUserinfoNick;
+    TextView mTvUserinfoNick;
     @BindView(R.id.tv_userinfo_name)
-    TextView tvUserinfoName;
+    TextView mTvUserinfoName;
     @BindView(R.id.btn_add_contact)
-    Button btnAddContact;
+    Button mBtnAddContact;
     @BindView(R.id.btn_send_msg)
-    Button btnSendMsg;
+    Button mBtnSendMsg;
     @BindView(R.id.btn_send_video)
-    Button btnSendVideo;
+    Button mBtnSendVideo;
     User user = null;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_friend_profile);
+        setContentView(R.layout.activity_firend_profile);
         ButterKnife.bind(this);
-        initData();
         initView();
+        initData();
     }
 
     private void initView() {
-        titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
+        mTitleBar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 MFGT.finish(FriendProfileActivity.this);
             }
         });
@@ -57,25 +58,38 @@ public class FriendProfileActivity extends BaseActivity {
 
     private void initData() {
         user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
-        Log.i("main", user.toString());
-        if (user != null) {
+        if (user!=null){
             showUserInfo();
-        } else {
+        }else{
             MFGT.finish(FriendProfileActivity.this);
         }
     }
 
     private void showUserInfo() {
-        tvUserinfoName.setText(user.getMUserName());
-        EaseUserUtils.setAppUserAvatar(FriendProfileActivity.this,user.getMUserName(),profileImage);
-//        Glide.with(FriendProfileActivity.this).load(user.getAvatar()).into(profileImage);
-        EaseUserUtils.setAppUserNick(user.getMUserName(),tvUserinfoNick);
-       /* showFriend(isFriend);*/
+        boolean isFriend = SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName());
+        if (isFriend){
+            SuperWeChatHelper.getInstance().saveAppContact(user);
+        }
+        mTvUserinfoName.setText(user.getMUserName());
+        EaseUserUtils.setAppUserAvatar(FriendProfileActivity.this,user,mProfileImage);
+        EaseUserUtils.setAppUserNick(user,mTvUserinfoNick);
+        showFirend(isFriend);
     }
 
-    private void showFriend(boolean isFriend) {
-        btnAddContact.setVisibility(isFriend?View.GONE:View.VISIBLE);
-        btnSendMsg.setVisibility(isFriend?View.VISIBLE:View.GONE);
-        btnSendVideo.setVisibility(isFriend?View.VISIBLE:View.GONE);
+    private void showFirend(boolean isFirend){
+        mBtnAddContact.setVisibility(isFirend?View.GONE:View.VISIBLE);
+        mBtnSendMsg.setVisibility(isFirend?View.VISIBLE:View.GONE);
+        mBtnSendVideo.setVisibility(isFirend?View.VISIBLE:View.GONE);
+    }
+
+    @OnClick(R.id.btn_add_contact)
+    public void addContact(){
+        boolean isConfirm = true;
+        if (isConfirm){
+            //发送验证消息
+            MFGT.gotoSendAddFirend(FriendProfileActivity.this,user.getMUserName());
+        }else{
+            //直接添加为好友
+        }
     }
 }

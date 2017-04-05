@@ -78,10 +78,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     MFViewPager mLayoutViewpage;
     @BindView(R.id.layout_tabhost)
     DMTabHost mLayoutTabhost;
-    TitlePopup titlePopup;
     @BindView(R.id.title_bar)
-    EaseTitleBar titleBar;
-
+    EaseTitleBar mTitleBar;
     // textview for unread message count
 //    private TextView unreadLabel;
 //    // textview for unread event message
@@ -96,8 +94,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public boolean isConflict = false;
     // user account was removed
     private boolean isCurrentAccountRemoved = false;
-    MainTabAdpter adapter;
 
+    MainTabAdpter adapter;
+    TitlePopup titlePopup;
 
     /**
      * check if current user account was remove
@@ -217,33 +216,36 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 //		// select first tab
 //		mTabs[0].setSelected(true);
 //        mTxtLeft.setVisibility(View.VISIBLE);
+        mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), AddContactActivity.class));
+                if (NetUtils.hasDataConnection(MainActivity.this)) {
+                    showPup();
+                }
+            }
+        });
         titlePopup = new TitlePopup(MainActivity.this);
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_groupchat, R.drawable.icon_menu_group));
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_addfriend, R.drawable.icon_menu_addfriend));
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_qrcode, R.drawable.icon_menu_sao));
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_money, R.drawable.icon_menu_money));
-        titleBar.setRightImageResource(R.drawable.em_add);
-        titleBar.setRightLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (NetUtils.hasDataConnection(MainActivity.this)) {
-                    showPop();
-                }
-            }
-        });
-        titlePopup.setItemOnClickListener(new TitlePopup.OnItemOnClickListener() {
-            @Override
-            public void onItemClick(ActionItem item, int position) {
-                if (position == 1) {
-                    // 显示添加好友的的Activity
-                    MFGT.gotoAddContact(MainActivity.this);
-                }
-            }
-        });
+        titlePopup.setItemOnClickListener(mOnItemOnClickListener);
     }
 
-    private void showPop() {
-        titlePopup.show(titleBar);
+    TitlePopup.OnItemOnClickListener mOnItemOnClickListener = new TitlePopup.OnItemOnClickListener() {
+        @Override
+        public void onItemClick(ActionItem item, int position) {
+            if (position==1){
+                // 进入添加好友页
+                MFGT.gotoAddContact(MainActivity.this);
+            }
+        }
+    };
+
+    private void showPup() {
+        titlePopup.show(mTitleBar);
     }
 
     /**

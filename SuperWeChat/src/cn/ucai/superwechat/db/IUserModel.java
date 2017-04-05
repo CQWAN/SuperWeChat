@@ -4,6 +4,10 @@ import android.content.Context;
 
 import java.io.File;
 
+/**
+ * Created by clawpo on 2017/3/29.
+ */
+
 public interface IUserModel {
     void register(Context context, String username, String nickname, String password,
                   OnCompleteListener<String> listener);
