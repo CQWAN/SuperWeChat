@@ -222,6 +222,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_addfriend, R.drawable.icon_menu_addfriend));
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_qrcode, R.drawable.icon_menu_sao));
         titlePopup.addAction(new ActionItem(MainActivity.this, R.string.menu_money, R.drawable.icon_menu_money));
+        titleBar.setRightImageResource(R.drawable.em_add);
         titleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +231,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 }
             }
         });
-        titleBar.setRightImageResource(R.drawable.em_add);
         titlePopup.setItemOnClickListener(new TitlePopup.OnItemOnClickListener() {
             @Override
             public void onItemClick(ActionItem item, int position) {
