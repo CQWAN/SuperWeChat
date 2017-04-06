@@ -54,7 +54,6 @@ public class AddContactActivity extends BaseActivity {
         setContentView(R.layout.em_activity_add_contact);
         ButterKnife.bind(this);
         initView();
-
         model = new UserModel();
     }
 
