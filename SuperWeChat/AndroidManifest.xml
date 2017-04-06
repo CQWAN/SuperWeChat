@@ -107,6 +107,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateVisible" />
+        <!-- 发送申请 -->
+        <activity
+            android:name=".ui.SendAddFirendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="stateVisible" />
         <!-- 群组详情 -->
         <activity
             android:name=".ui.GroupDetailsActivity"
