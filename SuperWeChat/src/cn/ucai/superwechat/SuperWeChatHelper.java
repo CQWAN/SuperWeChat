@@ -50,9 +50,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import cn.ucai.superwechat.db.IUserModel;
 import cn.ucai.superwechat.db.InviteMessgeDao;
+import cn.ucai.superwechat.db.OnCompleteListener;
 import cn.ucai.superwechat.db.SuperWeChatDBManager;
 import cn.ucai.superwechat.db.UserDao;
+import cn.ucai.superwechat.db.UserModel;
 import cn.ucai.superwechat.domain.EmojiconExampleGroupData;
 import cn.ucai.superwechat.domain.InviteMessage;
 import cn.ucai.superwechat.domain.RobotUser;
@@ -63,6 +66,8 @@ import cn.ucai.superwechat.ui.MainActivity;
 import cn.ucai.superwechat.ui.VideoCallActivity;
 import cn.ucai.superwechat.ui.VoiceCallActivity;
 import cn.ucai.superwechat.utils.PreferenceManager;
+import cn.ucai.superwechat.utils.Result;
+import cn.ucai.superwechat.utils.ResultUtils;
 
 public class SuperWeChatHelper {
     /**
@@ -79,6 +84,7 @@ public class SuperWeChatHelper {
     protected static final String TAG = "DemoHelper";
     
 	private EaseUI easeUI;
+    IUserModel userModel = null;
 	
     /**
      * EMEventListener
@@ -151,6 +157,7 @@ public class SuperWeChatHelper {
 	public void init(Context context) {
 	    demoModel = new SuperWeChatModel(context);
 	    EMOptions options = initChatOptions();
+        userModel = new UserModel();
 	    //use default options if options is null
 		if (EaseUI.getInstance().init(context, options)) {
 		    appContext = context;
@@ -726,7 +733,7 @@ public class SuperWeChatHelper {
             }
             toAddUsers.put(username, user);
             localUsers.putAll(toAddUsers);
-
+            onAppContactAdded(username);
             broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
         }
 
@@ -787,7 +794,32 @@ public class SuperWeChatHelper {
             Log.d(username, username + " refused to your request");
         }
     }
-    
+
+    private void onAppContactAdded(String username) {
+        userModel.addContact(appContext, username, EMClient.getInstance().getCurrentUser()
+                , new OnCompleteListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        if (s != null) {
+                            Result result = ResultUtils.getResultFromJson(s, User.class);
+                            if (result != null && result.isRetMsg()) {
+                                User user = (User) result.getRetData();
+                                if (user != null) {
+                                    // 将用户信息保存到数据库
+                                    // 将用户信息保存到内存
+                                    // 通知联系人列表更新
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
+    }
+
     /**
      * save and notify invitation message
      * @param msg
