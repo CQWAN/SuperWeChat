@@ -281,6 +281,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     EMMessageListener messageListener = new EMMessageListener() {
 
+
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
             // notify new message
