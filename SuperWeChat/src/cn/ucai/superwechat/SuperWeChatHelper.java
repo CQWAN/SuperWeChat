@@ -795,7 +795,7 @@ public class SuperWeChatHelper {
         }
     }
 
-    private void onAppContactAdded(String username) {
+    private void onAppContactAdded(final String username) {
         userModel.addContact(appContext, username, EMClient.getInstance().getCurrentUser()
                 , new OnCompleteListener<String>() {
                     @Override
@@ -806,8 +806,14 @@ public class SuperWeChatHelper {
                                 User user = (User) result.getRetData();
                                 if (user != null) {
                                     // 将用户信息保存到数据库
+                                    Map<String, User> appContactList = getAppContactList();
+                                    if (!appContactList.containsKey(username)) {
+                                        userDao.saveAppContact(user);
+                                    }
                                     // 将用户信息保存到内存
+                                    appContactList.put(user.getMUserName(), user);
                                     // 通知联系人列表更新
+                                    broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
                                 }
                             }
                         }
@@ -942,13 +948,10 @@ public class SuperWeChatHelper {
 				EMLog.d(TAG, "change:" + change);
 			}
 		};
-		
         EMClient.getInstance().chatManager().addMessageListener(messageListener);
     }
-
 	/**
 	 * if ever logged in
-	 * 
 	 * @return
 	 */
 	public boolean isLoggedIn() {
@@ -975,9 +978,7 @@ public class SuperWeChatHelper {
 				if (callback != null) {
 					callback.onSuccess();
 				}
-
 			}
-
 			@Override
 			public void onProgress(int progress, String status) {
 				if (callback != null) {
@@ -1031,10 +1032,8 @@ public class SuperWeChatHelper {
     	contactList.put(user.getUsername(), user);
     	demoModel.saveContact(user);
     }
-    
     /**
      * get contact list
-     *
      * @return
      */
     public Map<String, EaseUser> getContactList() {

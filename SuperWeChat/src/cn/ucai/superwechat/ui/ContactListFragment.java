@@ -163,7 +163,7 @@ public class ContactListFragment extends EaseContactListFragment {
         public void onClick(View v) {
             switch (v.getId()) {
             case R.id.application_item:
-                // 进入申请与通知页面
+                // 进入新的朋友页面
                 startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
                 break;
             case R.id.group_item:
@@ -208,10 +208,11 @@ public class ContactListFragment extends EaseContactListFragment {
                 e.printStackTrace();
             }
 			return true;
-		}else if(item.getItemId() == R.id.add_to_blacklist){
-			moveToBlacklist(toBeProcessUsername);
-			return true;
 		}
+//        else if(item.getItemId() == R.id.add_to_blacklist){
+//			moveToBlacklist(toBeProcessUsername);
+//			return true;
+//		}
 		return super.onContextItemSelected(item);
 	}
 
