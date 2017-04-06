@@ -2,7 +2,6 @@ package cn.ucai.superwechat.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +19,7 @@ import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.utils.MFGT;
 
 /**
- * Created by LPP on 2017/4/5.
+ * Created by clawpo on 2017/4/5.
  */
 public class SendAddFirendActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -59,10 +58,8 @@ public class SendAddFirendActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send)
     public void sendMsg() {
-        Log.i("main", "SendAddFirendActivity.sendMsg()");
         if (toAddUserName!=null){
             addContact();
-            Log.i("main", toAddUserName.toString());
         }
     }
 
@@ -71,11 +68,11 @@ public class SendAddFirendActivity extends BaseActivity {
      *
      */
     public void addContact() {
-        Log.i("main", "SendAddFirendActivity.addContact().start");
         if (EMClient.getInstance().getCurrentUser().equals(toAddUserName)) {
             new EaseAlertDialog(this, R.string.not_add_myself).show();
             return;
         }
+
         if (SuperWeChatHelper.getInstance().getAppContactList().containsKey(toAddUserName)) {
             //let the user know the contact already in your contact list
             if (EMClient.getInstance().contactManager().getBlackListUsernames().contains(toAddUserName)) {
@@ -91,8 +88,10 @@ public class SendAddFirendActivity extends BaseActivity {
         progressDialog.setMessage(stri);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+
         new Thread(new Runnable() {
             public void run() {
+
                 try {
                     //demo use a hardcode reason here, you need let user to input if you like
                     String s = mEtMsg.getText().toString();
@@ -115,6 +114,5 @@ public class SendAddFirendActivity extends BaseActivity {
                 }
             }
         }).start();
-        Log.i("main", "SendAddFirendActivity.addContact().end");
     }
 }

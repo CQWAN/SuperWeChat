@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.util.EMLog;
 
@@ -40,6 +41,7 @@ import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.SuperWeChatHelper.DataSyncListener;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
+import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.widget.ContactItemView;
 
 /**
@@ -77,10 +79,10 @@ public class ContactListFragment extends EaseContactListFragment {
     
     @Override
     public void refresh() {
-        Map<String, EaseUser> m = SuperWeChatHelper.getInstance().getContactList();
+        Map<String, User> m = SuperWeChatHelper.getInstance().getAppContactList();
         if (m instanceof Hashtable<?, ?>) {
             //noinspection unchecked
-            m = (Map<String, EaseUser>) ((Hashtable<String, EaseUser>)m).clone();
+            m = (Map<String, User>) ((Hashtable<String, User>)m).clone();
         }
         setContactsMap(m);
         super.refresh();
@@ -101,9 +103,9 @@ public class ContactListFragment extends EaseContactListFragment {
         hideTitleBar();
 
         //设置联系人数据
-        Map<String, EaseUser> m = SuperWeChatHelper.getInstance().getContactList();
+        Map<String, User> m = SuperWeChatHelper.getInstance().getAppContactList();
         if (m instanceof Hashtable<?, ?>) {
-            m = (Map<String, EaseUser>) ((Hashtable<String, EaseUser>)m).clone();
+            m = (Map<String, User>) ((Hashtable<String, User>)m).clone();
         }
         setContactsMap(m);
         super.setUpView();
@@ -111,11 +113,12 @@ public class ContactListFragment extends EaseContactListFragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EaseUser user = (EaseUser)listView.getItemAtPosition(position);
+                User user = (User)listView.getItemAtPosition(position);
                 if (user != null) {
-                    String username = user.getUsername();
+//                    String username = user.getUsername();
                     // demo中直接进入聊天页面，实际一般是进入用户详情页
-                    startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
+                    MFGT.gotoFriend(getActivity(),user);
+//                    startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
                 }
             }
         });
@@ -163,8 +166,8 @@ public class ContactListFragment extends EaseContactListFragment {
         public void onClick(View v) {
             switch (v.getId()) {
             case R.id.application_item:
-                // 进入新的朋友页面
-                startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
+                // 进入申请与通知页面
+                MFGT.gotoNewFriend(getActivity());
                 break;
             case R.id.group_item:
                 // 进入群聊列表页面

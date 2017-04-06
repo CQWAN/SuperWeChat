@@ -74,12 +74,13 @@ public class UserModel implements IUserModel {
                 .post()
                 .execute(listener);
     }
+
     @Override
-    public void addContact(Context context, String userName, String cName, OnCompleteListener<String> listener) {
-        OkHttpUtils<String> okHttpUtils = new OkHttpUtils<>(context);
-        okHttpUtils.setRequestUrl(I.REQUEST_ADD_CONTACT)
-                .addParam(I.Contact.USER_NAME,userName)
-                .addParam(I.Contact.CU_NAME,cName)
+    public void addContact(Context context, String username,String cname, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_CONTACT)
+                .addParam(I.Contact.USER_NAME,username)
+                .addParam(I.Contact.CU_NAME,cname)
                 .targetClass(String.class)
                 .execute(listener);
     }

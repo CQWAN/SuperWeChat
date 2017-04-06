@@ -243,6 +243,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             }
         }
     };
+
     private void showPup() {
         titlePopup.show(mTitleBar);
     }
@@ -279,6 +280,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     EMMessageListener messageListener = new EMMessageListener() {
+
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
             // notify new message
@@ -378,6 +380,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
+
     @Override
     public void onPageSelected(int position) {
         mLayoutTabhost.setChecked(position);
@@ -455,7 +458,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     public void updateUnreadLabel() {
         int count = getUnreadMsgCountTotal();
-        mLayoutTabhost.setHasNew(1,count>0);
+//        if (count > 0) {
+//            unreadLabel.setText(String.valueOf(count));
+//            unreadLabel.setVisibility(View.VISIBLE);
+//        } else {
+//            unreadLabel.setVisibility(View.INVISIBLE);
+//        }
     }
 
     /**
@@ -466,8 +474,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             public void run() {
                 int count = getUnreadAddressCountTotal();
                 mLayoutTabhost.setHasNew(1,count>0);
+//                if (count > 0) {
+//                    unreadAddressLable.setVisibility(View.VISIBLE);
+//                } else {
+//                    unreadAddressLable.setVisibility(View.INVISIBLE);
+//                }
             }
         });
+
     }
 
     /**
@@ -483,6 +497,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     /**
      * get unread message count
+     *
      * @return
      */
     public int getUnreadMsgCountTotal() {

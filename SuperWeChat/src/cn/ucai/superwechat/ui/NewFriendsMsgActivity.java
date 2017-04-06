@@ -31,31 +31,35 @@ import cn.ucai.superwechat.utils.MFGT;
 
 /**
  * Application and notification
+ *
  */
 public class NewFriendsMsgActivity extends BaseActivity {
+
     @BindView(R.id.title_bar)
-    EaseTitleBar titleBar;
+    EaseTitleBar mTitleBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.em_activity_new_friends_msg);
         ButterKnife.bind(this);
-        initView();
+
         ListView listView = (ListView) findViewById(R.id.list);
         InviteMessgeDao dao = new InviteMessgeDao(this);
         List<InviteMessage> msgs = dao.getMessagesList();
+
         NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(this, 1, msgs);
         listView.setAdapter(adapter);
         dao.saveUnreadMessageCount(0);
-    }
-    private void initView() {
-        titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
+
+        mTitleBar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 MFGT.finish(NewFriendsMsgActivity.this);
             }
         });
     }
+
     public void back(View view) {
         finish();
     }
