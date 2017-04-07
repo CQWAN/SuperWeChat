@@ -21,7 +21,7 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.utils.MFGT;
 
 /**
- * Created by clawpo on 2017/3/31.
+ * Created by LPP on 2017/3/31.
  */
 public class ProfileFragment extends Fragment {
     @BindView(R.id.iv_profile_avatar)
