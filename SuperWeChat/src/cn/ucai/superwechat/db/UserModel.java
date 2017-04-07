@@ -8,7 +8,7 @@ import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.utils.OkHttpUtils;
 
 /**
- * Created by clawpo on 2017/3/29.
+ * Created by LPP on 2017/3/29.
  */
 
 public class UserModel implements IUserModel {
@@ -81,6 +81,15 @@ public class UserModel implements IUserModel {
         utils.setRequestUrl(I.REQUEST_ADD_CONTACT)
                 .addParam(I.Contact.USER_NAME,username)
                 .addParam(I.Contact.CU_NAME,cname)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void loadContact(Context context, String userName, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> okHttpUtils = new OkHttpUtils<>(context);
+        okHttpUtils.setRequestUrl(I.REQUEST_DOWNLOAD_CONTACT_ALL_LIST)
+                .addParam(I.Contact.USER_NAME,userName)
                 .targetClass(String.class)
                 .execute(listener);
     }
