@@ -116,6 +116,7 @@ public class FriendProfileActivity extends BaseActivity {
     }
     @OnClick(R.id.btn_send_msg)
     public void sendMsg(){
+        MFGT.finish(FriendProfileActivity.this);
         MFGT.gotoChat(FriendProfileActivity.this,user.getMUserName());
     }
 
