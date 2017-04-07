@@ -93,4 +93,13 @@ public class UserModel implements IUserModel {
                 .targetClass(String.class)
                 .execute(listener);
     }
+    @Override
+    public void delContact(Context context, String userName, String cName, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> okHttpUtils = new OkHttpUtils<>(context);
+        okHttpUtils.setRequestUrl(I.REQUEST_DELETE_CONTACT)
+                .addParam(I.Contact.USER_NAME,userName)
+                .addParam(I.Contact.CU_NAME,cName)
+                .targetClass(String.class)
+                .execute(listener);
+    }
 }

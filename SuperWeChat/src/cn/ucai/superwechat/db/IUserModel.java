@@ -19,4 +19,5 @@ public interface IUserModel {
     void uploadAvatar(Context context, String username, File file, OnCompleteListener<String> listener);
     void addContact(Context context, String username, String cname, OnCompleteListener<String> listener);
     void loadContact(Context context,String userName,OnCompleteListener<String> listener);
+    void delContact(Context context,String userName,String cName,OnCompleteListener<String> listener);
 }
