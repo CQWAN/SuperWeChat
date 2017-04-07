@@ -1274,6 +1274,7 @@ public class SuperWeChatHelper {
                                EaseCommonUtils.setAppUserInitialLetter(user);
                                userlist.put(user.getMUserName(), user);
                            }
+
                            // save the contact list to cache
                            getAppContactList().clear();
                            getAppContactList().putAll(userlist);
