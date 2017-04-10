@@ -163,6 +163,9 @@ public class FriendProfileActivity extends BaseActivity {
                         }
                     }
 
+
+
+
                     @Override
                     public void onError(String error) {
 
