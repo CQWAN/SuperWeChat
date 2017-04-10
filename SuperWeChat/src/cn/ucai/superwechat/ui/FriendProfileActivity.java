@@ -30,7 +30,7 @@ import cn.ucai.superwechat.utils.Result;
 import cn.ucai.superwechat.utils.ResultUtils;
 
 /**
- * Created by clawpo on 2017/4/5.
+ * Created by LPP on 2017/4/5.
  */
 public class FriendProfileActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -135,7 +135,6 @@ public class FriendProfileActivity extends BaseActivity {
                     .putExtra("isComingCall", false));
         }
     }
-
     private void syncUserInfo(){
         //从服务器异步加载用户的最新信息,填充到好友列表或者新的朋友列表
         model.loadUserInfo(FriendProfileActivity.this, user.getMUserName(),
@@ -162,10 +161,6 @@ public class FriendProfileActivity extends BaseActivity {
                             }
                         }
                     }
-
-
-
-
                     @Override
                     public void onError(String error) {
 
