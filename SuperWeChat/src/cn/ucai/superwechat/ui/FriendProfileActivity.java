@@ -27,7 +27,7 @@ import cn.ucai.superwechat.utils.Result;
 import cn.ucai.superwechat.utils.ResultUtils;
 
 /**
- * Created by LPP on 2017/4/5.
+ * Created by clawpo on 2017/4/5.
  */
 public class FriendProfileActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -114,9 +114,10 @@ public class FriendProfileActivity extends BaseActivity {
             //直接添加为好友
         }
     }
+
     @OnClick(R.id.btn_send_msg)
     public void sendMsg(){
-        MFGT.finish(FriendProfileActivity.this);
+        finish();
         MFGT.gotoChat(FriendProfileActivity.this,user.getMUserName());
     }
 

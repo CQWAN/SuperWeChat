@@ -626,12 +626,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         showExceptionDialogFromIntent(intent);
-        boolean isFromChat = intent.getBooleanExtra(I.IS_FROM_CHAT, false);
-        if (isFromChat) {
+        boolean isChat = intent.getBooleanExtra(I.IS_FROM_CHAT,false);
+        if (isChat){
             mLayoutTabhost.setChecked(0);
             mLayoutViewpage.setCurrentItem(0);
         }
     }
+
     /**
      * debug purpose only, you can ignore this
      */

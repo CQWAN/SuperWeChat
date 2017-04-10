@@ -45,6 +45,11 @@ public class MFGT {
         startActivity(activity, MainActivity.class);
     }
 
+    public static void gotoMain(Activity activity,boolean isChat) {
+        startActivity(activity, new Intent(activity,MainActivity.class)
+        .putExtra(I.IS_FROM_CHAT,isChat));
+    }
+
     public static void startActivityForResult(Activity activity,Intent intent,int requestCode){
         activity.startActivityForResult(intent,requestCode);
         activity.overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
@@ -95,12 +100,8 @@ public class MFGT {
         startActivity(activity, NewFriendsMsgActivity.class);
     }
 
-    public static void gotoChat(Activity activity, String mUserName) {
-        startActivity(activity,new Intent(activity, ChatActivity.class).putExtra("userId", mUserName));
-    }
-
-    public static void gotoMain(Activity activity, boolean isFromChat) {
-        startActivity(activity,new Intent(activity,MainActivity.class)
-        .putExtra(I.IS_FROM_CHAT,isFromChat));
+    public static void gotoChat(Activity activity, String username) {
+        startActivity(activity,new Intent(activity, ChatActivity.class)
+                .putExtra("userId", username));
     }
 }

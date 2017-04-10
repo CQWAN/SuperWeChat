@@ -27,6 +27,7 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 
 public class ConversationListFragment extends EaseConversationListFragment{
+    private static final String TAG = "ConversationListFragmen";
 
     private TextView errorText;
 
@@ -128,9 +129,12 @@ public class ConversationListFragment extends EaseConversationListFragment{
             deleteMessage = true;
         } else if (item.getItemId() == R.id.delete_conversation) {
             deleteMessage = false;
+        } else{
+            return false;
         }
     	EMConversation tobeDeleteCons = conversationListView.getItem(((AdapterContextMenuInfo) item.getMenuInfo()).position);
-    	if (tobeDeleteCons == null) {
+
+        if (tobeDeleteCons == null) {
     	    return true;
     	}
         if(tobeDeleteCons.getType() == EMConversationType.GroupChat){
@@ -148,7 +152,7 @@ public class ConversationListFragment extends EaseConversationListFragment{
 
         // update unread count
         ((MainActivity) getActivity()).updateUnreadLabel();
-        return true;
+        return false;
     }
 
 }

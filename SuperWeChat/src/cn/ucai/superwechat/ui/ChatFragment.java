@@ -52,6 +52,7 @@ import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.widget.ChatRowVoiceCall;
 
 public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHelper{
+    private static final String TAG = "ChatFragment";
 
 	// constant start from 11 to avoid conflict with constant in base class
     private static final int ITEM_VIDEO = 11;
@@ -112,6 +113,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             @Override
             public void onClick(View v) {
 //                if (EasyUtils.isSingleActivity(getActivity())) {
+//                    L.e(TAG,"titleBar.setLeftLayoutClickListener----1");
 //                    Intent intent = new Intent(getActivity(), MainActivity.class);
 //                    startActivity(intent);
 //                }
