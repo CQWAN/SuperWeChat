@@ -25,7 +25,6 @@ import com.hyphenate.util.NetUtils;
 import cn.ucai.superwechat.Constant;
 import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.InviteMessgeDao;
-
 public class ConversationListFragment extends EaseConversationListFragment{
     private static final String TAG = "ConversationListFragmen";
 
