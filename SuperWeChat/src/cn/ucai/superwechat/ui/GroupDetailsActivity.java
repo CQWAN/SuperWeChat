@@ -284,7 +284,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 				if(!TextUtils.isEmpty(returnData)){
 					progressDialog.setMessage(st5);
 					progressDialog.show();
-					
+					updateGroupName(returnData);
 					new Thread(new Runnable() {
 						public void run() {
 							try {
@@ -344,6 +344,22 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 				break;
 			}
 		}
+	}
+
+	/**
+	 * 修改群名称
+	 * @param returnData
+     */
+	private void updateGroupName(String returnData) {
+		model.updateGroupNameByHxId(GroupDetailsActivity.this, groupId, returnData, new OnCompleteListener<String>() {
+			@Override
+			public void onSuccess(String s) {
+			}
+
+			@Override
+			public void onError(String error) {
+			}
+		});
 	}
 
 	private void refreshOwnerAdminAdapter() {
