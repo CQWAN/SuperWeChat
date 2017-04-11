@@ -15,7 +15,6 @@ package cn.ucai.superwechat.ui;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -43,7 +42,6 @@ import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.OnCompleteListener;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.db.UserModel;
-import cn.ucai.superwechat.utils.L;
 import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.utils.Result;
 import cn.ucai.superwechat.utils.ResultUtils;
@@ -87,7 +85,6 @@ public class ContactListFragment extends EaseContactListFragment {
     @Override
     public void refresh() {
         Map<String, User> m = SuperWeChatHelper.getInstance().getAppContactList();
-        L.e(TAG,"refresh,m="+m.size());
         if (m instanceof Hashtable<?, ?>) {
             //noinspection unchecked
             m = (Map<String, User>) ((Hashtable<String, User>)m).clone();
@@ -182,7 +179,7 @@ public class ContactListFragment extends EaseContactListFragment {
                 break;
             case R.id.group_item:
                 // 进入群聊列表页面
-                startActivity(new Intent(getActivity(), GroupsActivity.class));
+                MFGT.gotoGroups(getActivity());
                 break;
 //            case R.id.chat_room_item:
 //                //进入聊天室列表页面
@@ -211,7 +208,6 @@ public class ContactListFragment extends EaseContactListFragment {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-        L.e(TAG,"onContextItemSelected,toBeProcessUser="+toBeProcessUser);
 		if (item.getItemId() == R.id.delete_contact) {
 			try {
                 // delete contact

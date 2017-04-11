@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/em_mm_title_back"
         app:titleBarTitle="@string/add_friend">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

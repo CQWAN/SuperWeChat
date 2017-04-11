@@ -30,7 +30,7 @@ import cn.ucai.superwechat.utils.Result;
 import cn.ucai.superwechat.utils.ResultUtils;
 
 /**
- * Created by LPP on 2017/4/5.
+ * Created by clawpo on 2017/4/5.
  */
 public class FriendProfileActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -74,37 +74,50 @@ public class FriendProfileActivity extends BaseActivity {
     private void initData() {
         model = new UserModel();
         user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
-        if (user!=null){
-            showUserInfo();
-        }else{
+        if (user == null){
             msg  = (InviteMessage) getIntent().getSerializableExtra(I.User.NICK);
-            if (msg!=null){
+            if (msg!=null) {
                 user = new User(msg.getFrom());
                 user.setMUserNick(msg.getNickname());
                 user.setAvatar(msg.getAvatar());
-                showUserInfo();
-            }else {
-                MFGT.finish(FriendProfileActivity.this);
             }
+        }
+        if (user == null){
+            String username = getIntent().getStringExtra(I.User.USER_NAME);
+            if (username!=null){
+                user = new User(username);
+            }
+        }
+        if (user==null){
+            MFGT.finish(FriendProfileActivity.this);
+        }else {
+            showUserInfo();
+            syncUserInfo();
         }
     }
 
     private void showUserInfo() {
         isFriend = SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName());
-        if (isFriend){
+        if (isFriend && user.getMUserNick()!=null){
             SuperWeChatHelper.getInstance().saveAppContact(user);
         }
         mTvUserinfoName.setText(user.getMUserName());
         EaseUserUtils.setAppUserAvatar(FriendProfileActivity.this,user,mProfileImage);
         EaseUserUtils.setAppUserNick(user,mTvUserinfoNick);
         showFirend(isFriend);
-        syncUserInfo();
+//        syncUserInfo();
     }
 
     private void showFirend(boolean isFirend){
-        mBtnAddContact.setVisibility(isFirend?View.GONE:View.VISIBLE);
-        mBtnSendMsg.setVisibility(isFirend?View.VISIBLE:View.GONE);
-        mBtnSendVideo.setVisibility(isFirend?View.VISIBLE:View.GONE);
+        if (user.getMUserName().equals(EMClient.getInstance().getCurrentUser())){
+            mBtnAddContact.setVisibility(View.GONE);
+            mBtnSendMsg.setVisibility(View.GONE);
+            mBtnSendVideo.setVisibility(View.GONE);
+        }else {
+            mBtnAddContact.setVisibility(isFirend ? View.GONE : View.VISIBLE);
+            mBtnSendMsg.setVisibility(isFirend ? View.VISIBLE : View.GONE);
+            mBtnSendVideo.setVisibility(isFirend ? View.VISIBLE : View.GONE);
+        }
     }
 
     @OnClick(R.id.btn_add_contact)
@@ -123,18 +136,22 @@ public class FriendProfileActivity extends BaseActivity {
         finish();
         MFGT.gotoChat(FriendProfileActivity.this,user.getMUserName());
     }
+
     /**
-     * 视频聊天
+     * make a video call
      */
     @OnClick(R.id.btn_send_video)
     public void startVideoCall() {
         if (!EMClient.getInstance().isConnected())
             Toast.makeText(FriendProfileActivity.this, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
         else {
-            startActivity(new Intent(FriendProfileActivity.this, VideoCallActivity.class).putExtra("username", user.getMUserName())
+            startActivity(new Intent(FriendProfileActivity.this, VideoCallActivity.class)
+                    .putExtra("username", user.getMUserName())
                     .putExtra("isComingCall", false));
+            // videoCallBtn.setEnabled(false);
         }
     }
+
     private void syncUserInfo(){
         //从服务器异步加载用户的最新信息,填充到好友列表或者新的朋友列表
         model.loadUserInfo(FriendProfileActivity.this, user.getMUserName(),
@@ -157,10 +174,13 @@ public class FriendProfileActivity extends BaseActivity {
                                         //update user
                                         SuperWeChatHelper.getInstance().saveAppContact(u);
                                     }
+                                    user = u;
+                                    showUserInfo();
                                 }
                             }
                         }
                     }
+
                     @Override
                     public void onError(String error) {
 

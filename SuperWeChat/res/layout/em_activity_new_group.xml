@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#eee"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#eee"
+              android:orientation="vertical">
+
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/em_mm_title_back"
         app:titleBarTitle="@string/The_new_group_chat">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/btn_search"
             android:text="@string/button_save"
             android:background="@drawable/ease_common_tab_bg"
             android:textColor="#fff"
@@ -23,6 +26,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
     </com.hyphenate.easeui.widget.EaseTitleBar>
+
+
     <EditText
         android:id="@+id/edit_group_name"
         android:layout_width="match_parent"
@@ -33,6 +38,7 @@
         android:paddingLeft="5dp"
         android:singleLine="true"
         android:textSize="18sp" />
+
     <EditText
         android:id="@+id/edit_group_introduction"
         android:layout_width="match_parent"
@@ -47,14 +53,16 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:textSize="18sp" />
+
     <LinearLayout
+        android:id="@+id/layout_group_icon"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/em_button_normal_shape"
-        >
+        android:background="@drawable/em_button_normal_shape">
+
         <TextView
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
@@ -63,15 +71,18 @@
             android:textColor="#333"
             android:layout_gravity="center_vertical"
             android:textSize="18sp"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1"/>
+
         <ImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ease_group_icon"
-            />
-        </LinearLayout>
-
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitXY"
+            android:paddingRight="5dp"
+            android:src="@drawable/ease_group_icon" />
+    </LinearLayout>
     
     
     <LinearLayout 
