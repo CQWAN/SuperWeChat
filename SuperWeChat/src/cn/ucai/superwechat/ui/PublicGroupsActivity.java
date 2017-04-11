@@ -25,7 +25,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -62,7 +61,7 @@ public class PublicGroupsActivity extends BaseActivity {
     private LinearLayout footLoadingLayout;
     private ProgressBar footLoadingPB;
     private TextView footLoadingText;
-    private Button searchBtn;
+//    private Button searchBtn;
 
 
     @Override
@@ -74,7 +73,7 @@ public class PublicGroupsActivity extends BaseActivity {
         pb = (ProgressBar) findViewById(R.id.progressBar);
         listView = (ListView) findViewById(R.id.list);
         groupsList = new ArrayList<EMGroupInfo>();
-        searchBtn = (Button) findViewById(R.id.btn_search);
+//        searchBtn = (Button) findViewById(R.id.btn_search);
 
         View footView = getLayoutInflater().inflate(R.layout.em_listview_footer_view, listView, false);
         footLoadingLayout = (LinearLayout) footView.findViewById(R.id.loading_layout);
@@ -139,7 +138,7 @@ public class PublicGroupsActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
 
                         public void run() {
-                            searchBtn.setVisibility(View.VISIBLE);
+//                            searchBtn.setVisibility(View.VISIBLE);
                             groupsList.addAll(returnGroups);
                             if (returnGroups.size() != 0) {
                                 cursor = result.getCursor();
@@ -180,7 +179,6 @@ public class PublicGroupsActivity extends BaseActivity {
 
     /**
      * adapter
-     *
      */
     private class GroupsAdapter extends ArrayAdapter<EMGroupInfo> {
 

@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/common_bg"
     android:orientation="vertical">
+
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/em_mm_title_back"
         app:titleBarTitle="@string/Open_group_chat">
-
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="26dp"
@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="7dp" />
     </com.hyphenate.easeui.widget.EaseTitleBar>
-	
+
     <include android:id="@+id/search_bar_view" layout="@layout/em_search_bar_with_padding"/>
     <ListView
         android:id="@+id/list"
