@@ -185,7 +185,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 	 */
 	private void acceptInvitation(final Button buttonAgree, final TextView buttonRefuse, final InviteMessage msg) {
 		final ProgressDialog pd = new ProgressDialog(context);
-		String str1 = context.getResources().getString(R.string.Are_agree_with);
+		String str1 =                 context.getResources().getString(R.string.Are_agree_with);
 		final String str2 = context.getResources().getString(R.string.Has_agreed_to);
 		final String str3 = context.getResources().getString(R.string.Agree_with_failure);
 		pd.setMessage(str1);
