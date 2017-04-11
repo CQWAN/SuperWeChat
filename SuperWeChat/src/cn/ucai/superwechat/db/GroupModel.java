@@ -8,7 +8,7 @@ import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.utils.OkHttpUtils;
 
 /**
- * Created by clawpo on 2017/4/10.
+ * Created by LPP on 2017/4/10.
  */
 
 public class GroupModel implements IGroupModel {
@@ -25,6 +25,16 @@ public class GroupModel implements IGroupModel {
                 .addFile2(file)
                 .targetClass(String.class)
                 .post()
+                .execute(listener);
+    }
+
+    @Override
+    public void addGroupMembers(Context context, String members, String hxId, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> okHttpUtils = new OkHttpUtils<>(context);
+        okHttpUtils.setRequestUrl(I.REQUEST_ADD_GROUP_MEMBERS)
+                .addParam(I.Group.NAME,members)
+                .addParam(I.Group.HX_ID,hxId)
+                .targetClass(String.class)
                 .execute(listener);
     }
 }

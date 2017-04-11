@@ -176,7 +176,7 @@ public class NewGroupActivity extends BaseActivity {
 						option.style = memberCheckbox.isChecked()? EMGroupManager.EMGroupStyle.EMGroupStylePrivateMemberCanInvite: EMGroupManager.EMGroupStyle.EMGroupStylePrivateOnlyOwnerInvite;
 					}
 					EMGroup emGroup = EMClient.getInstance().groupManager().createGroup(groupName, desc, members, reason, option);
-					createAppGroup(emGroup);
+					createAppGroup(emGroup,members);
 
 				} catch (final HyphenateException e) {
 					runOnUiThread(new Runnable() {
@@ -191,7 +191,7 @@ public class NewGroupActivity extends BaseActivity {
 		}).start();
 	}
 
-	private void createAppGroup(EMGroup emGroup) {
+	private void createAppGroup(EMGroup emGroup, final String[] members) {
 		if (emGroup!=null){
 			model.newGroup(NewGroupActivity.this, emGroup.getGroupId(), emGroup.getGroupName(),
 					emGroup.getDescription(), emGroup.getOwner(), emGroup.isPublic(), emGroup.isAllowInvites(),
@@ -205,11 +205,17 @@ public class NewGroupActivity extends BaseActivity {
 								if (result!=null && result.isRetMsg()){
 									Group group = (Group) result.getRetData();
 									if (group!=null){
-										success = true;
+										if (members.length > 0) {
+											addMembers(group.getMGroupHxid(), getMembers(members));
+										} else {
+											success = true;
+										}
 									}
 								}
 							}
-							createSucces(success);
+							if (members.length <= 0) {
+								createSucces(success);
+							}
 						}
 
 						@Override
@@ -218,6 +224,35 @@ public class NewGroupActivity extends BaseActivity {
 						}
 					});
 		}
+	}
+
+	private String getMembers(String[] members) {
+		StringBuilder sb = new StringBuilder();
+		for (String member : members) {
+			sb.append(member).append(",");
+		}
+		return sb.toString();
+	}
+
+	private void addMembers(String hxId,String members){
+		model.addGroupMembers(NewGroupActivity.this, members, hxId, new OnCompleteListener<String>() {
+			@Override
+			public void onSuccess(String s) {
+				boolean success = false;
+				if (s != null) {
+					Result result = ResultUtils.getResultFromJson(s, Group.class);
+					if (result != null && result.isRetMsg()) {
+						success = true;
+					}
+				}
+				createSucces(success);
+			}
+
+			@Override
+			public void onError(String error) {
+				createSucces(false);
+			}
+		});
 	}
 
 	private void createSucces(final boolean success){
