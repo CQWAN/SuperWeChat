@@ -277,6 +277,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 				progressDialog.setMessage(st3);
 				progressDialog.show();
 				deleteGrop();
+//				deleteGroup();
 				break;
 
 			case REQUEST_CODE_EDIT_GROUPNAME: //修改群名称
@@ -344,6 +345,10 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 				break;
 			}
 		}
+	}
+
+	private void deleteGroup(int groupId) {
+
 	}
 
 	/**
@@ -478,7 +483,6 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 	/**
 	 * 解散群组
-	 * 
 	 */
 	private void deleteGrop() {
 		final String st5 = getResources().getString(R.string.Dissolve_group_chat_tofail);
